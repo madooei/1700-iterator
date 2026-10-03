@@ -78,7 +78,8 @@ public class SortedArraySet<T extends Comparable<T>> implements Set<T> {
 
   @Override
   public Iterator<T> iterator() {
-    return new SortedArraySetIterator();
+    // TODO: Implement me
+    throw new UnsupportedOperationException("TODO: Implement me");
   }
 
   // Returns the index of item, or -1 if item is not found.
@@ -126,18 +127,14 @@ public class SortedArraySet<T extends Comparable<T>> implements Set<T> {
 
     @Override
     public boolean hasNext() {
-      return cursor < size;
+      // TODO: Implement me
+      throw new UnsupportedOperationException("TODO: Implement me");
     }
 
     @Override
     public T next() {
-      if (modCount != expectedModCount) {
-        throw new ConcurrentModificationException();
-      }
-      if (!hasNext()) {
-        throw new NoSuchElementException();
-      }
-      return arr[cursor++];
+      // TODO: Implement me
+      throw new UnsupportedOperationException("TODO: Implement me");
     }
   }
 }

@@ -91,7 +91,8 @@ public class MoveToFrontLinkedSet<T> implements Set<T> {
 
   @Override
   public Iterator<T> iterator() {
-    return new MoveToFrontLinkedSetIterator();
+    // TODO: Implement me
+    throw new UnsupportedOperationException("TODO: Implement me");
   }
 
   // Pre: previous is the node before node, or null when node is the head.
@@ -112,20 +113,14 @@ public class MoveToFrontLinkedSet<T> implements Set<T> {
 
     @Override
     public boolean hasNext() {
-      return current != null;
+      // TODO: Implement me
+      throw new UnsupportedOperationException("TODO: Implement me");
     }
 
     @Override
     public T next() {
-      if (modCount != expectedModCount) {
-        throw new ConcurrentModificationException();
-      }
-      if (!hasNext()) {
-        throw new NoSuchElementException();
-      }
-      T element = current.value;   // save before advancing: once current moves on,
-      current = current.next;      // the node we were on is out of reach
-      return element;
+      // TODO: Implement me
+      throw new UnsupportedOperationException("TODO: Implement me");
     }
   }
 }
