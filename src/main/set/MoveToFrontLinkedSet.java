@@ -35,13 +35,15 @@ public class MoveToFrontLinkedSet<T> implements Set<T> {
     if (item == null) {
       throw new IllegalArgumentException();
     }
-    Node<T> previous = null;
-    for (Node<T> node = head; node != null; node = node.next) {
-      if (node.value.equals(item)) {
-        moveToFront(node, previous);
+    Node<T> prev = null;
+    Node<T> curr = head;
+    while (curr != null) {
+      if (item.equals(curr.value)) {
+        moveToFront(curr, prev);
         return true;
       }
-      previous = node;
+      prev = curr;
+      curr = curr.next;
     }
     return false;
   }
@@ -67,21 +69,23 @@ public class MoveToFrontLinkedSet<T> implements Set<T> {
     if (item == null) {
       throw new IllegalArgumentException();
     }
-    Node<T> previous = null;
-    for (Node<T> node = head; node != null; node = node.next) {
-      if (node.value.equals(item)) {
-        if (previous == null) {
-          head = node.next;  // the match was the first node
+    Node<T> prev = null;
+    Node<T> curr = head;
+    while (curr != null) {
+      if (item.equals(curr.value)) {
+        if (prev != null) {
+          prev.next = curr.next;
         } else {
-          previous.next = node.next;  // unlink the match
+          head = head.next;
         }
         size--;
         modCount++;  // a real change; iterators in progress are now stale
         return true;
       }
-      previous = node;
+      prev = curr;
+      curr = curr.next;
     }
-    return false;  // not found; nothing changed
+    return false;
   }
 
   @Override
@@ -94,10 +98,11 @@ public class MoveToFrontLinkedSet<T> implements Set<T> {
     return new MoveToFrontLinkedSetIterator();
   }
 
-  // Pre: previous is the node before node, or null when node is the head.
+  // Moves node to the head of the list. previous is the node before it,
+  // or null if node is already the head.
   private void moveToFront(Node<T> node, Node<T> previous) {
     if (previous == null) {
-      return;               // already at the front; nothing to do
+      return;                   // already at the front; nothing to do
     }
     previous.next = node.next;  // unlink the node from its current spot
     node.next = head;           // splice it in at the head
