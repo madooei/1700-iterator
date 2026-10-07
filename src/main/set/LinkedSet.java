@@ -35,10 +35,12 @@ public class LinkedSet<T> implements Set<T> {
     if (item == null) {
       throw new IllegalArgumentException();
     }
-    for (Node<T> node = head; node != null; node = node.next) {
-      if (node.value.equals(item)) {
+    Node<T> curr = head;
+    while (curr != null) {
+      if (item.equals(curr.value)) {
         return true;
       }
+      curr = curr.next;
     }
     return false;
   }
@@ -64,21 +66,23 @@ public class LinkedSet<T> implements Set<T> {
     if (item == null) {
       throw new IllegalArgumentException();
     }
-    Node<T> previous = null;
-    for (Node<T> node = head; node != null; node = node.next) {
-      if (node.value.equals(item)) {
-        if (previous == null) {
-          head = node.next;  // the match was the first node
+    Node<T> prev = null;
+    Node<T> curr = head;
+    while (curr != null) {
+      if (item.equals(curr.value)) {
+        if (prev != null) {
+          prev.next = curr.next;
         } else {
-          previous.next = node.next;  // unlink the match
+          head = head.next;
         }
         size--;
         modCount++;  // a real change; iterators in progress are now stale
         return true;
       }
-      previous = node;
+      prev = curr;
+      curr = curr.next;
     }
-    return false;  // not found; nothing changed
+    return false;
   }
 
   @Override
