@@ -12,12 +12,6 @@ public final class Main {
     registerUsers(new LinkedSet<>());
     System.out.println("ArraySet:");
     registerUsers(new ArraySet<>());
-    System.out.println("MoveToFrontLinkedSet:");
-    registerUsers(new MoveToFrontLinkedSet<>());
-    System.out.println("TransposeArraySet:");
-    registerUsers(new TransposeArraySet<>());
-    System.out.println("SortedArraySet:");
-    registerUsers(new SortedArraySet<>());
   }
 
   // Registers a few usernames, including one that is already taken, then frees one.

@@ -1,8 +1,6 @@
 package set;
 
-import java.util.ConcurrentModificationException;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /**
  * A node-backed implementation of the Set ADT.
@@ -13,7 +11,6 @@ public class LinkedSet<T> implements Set<T> {
 
   private Node<T> head;  // the first node, or null when empty
   private int size;      // how many items the set holds
-  private int modCount;  // counts structural changes, so iterators can fail fast
 
   private static class Node<T> {
     T value;
@@ -27,7 +24,6 @@ public class LinkedSet<T> implements Set<T> {
   public LinkedSet() {
     head = null;  // the set starts empty
     size = 0;
-    modCount = 0;
   }
 
   @Override
@@ -57,7 +53,6 @@ public class LinkedSet<T> implements Set<T> {
     newNode.next = head;  // insert at the head
     head = newNode;
     size++;
-    modCount++;           // a real change; iterators in progress are now stale
     return true;
   }
 
@@ -76,7 +71,6 @@ public class LinkedSet<T> implements Set<T> {
           head = head.next;
         }
         size--;
-        modCount++;  // a real change; iterators in progress are now stale
         return true;
       }
       prev = curr;
@@ -98,9 +92,6 @@ public class LinkedSet<T> implements Set<T> {
 
   // Walks the node chain with a current-node field, starting at head.
   private class LinkedSetIterator implements Iterator<T> {
-    private Node<T> current = head;            // node holding the next element to return
-    private int expectedModCount = modCount;   // the set's count when this walk began
-
     @Override
     public boolean hasNext() {
       // TODO: Implement me

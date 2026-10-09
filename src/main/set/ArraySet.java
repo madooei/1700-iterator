@@ -1,8 +1,6 @@
 package set;
 
-import java.util.ConcurrentModificationException;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /**
  * An array-backed implementation of the Set ADT.
@@ -13,14 +11,12 @@ public class ArraySet<T> implements Set<T> {
 
   private T[] arr;       // the backing array
   private int size;      // how many items the set holds
-  private int modCount;  // counts structural changes, so iterators can fail fast
 
   // arr only ever holds T, so the cast is safe.
   @SuppressWarnings("unchecked")
   public ArraySet() {
     arr = (T[]) new Object[10];  // start with room for 10 items
     size = 0;                    // the set starts empty
-    modCount = 0;
   }
 
   @Override
@@ -44,7 +40,6 @@ public class ArraySet<T> implements Set<T> {
     }
     arr[size] = item;  // append at the end
     size++;
-    modCount++;        // a real change; iterators in progress are now stale
     return true;
   }
 
@@ -60,7 +55,6 @@ public class ArraySet<T> implements Set<T> {
     arr[i] = arr[size - 1];  // move the last item into the gap
     arr[size - 1] = null;    // clear the vacated slot
     size--;
-    modCount++;              // a real change; iterators in progress are now stale
     return true;
   }
 
@@ -97,9 +91,6 @@ public class ArraySet<T> implements Set<T> {
 
   // Walks the filled prefix of the backing array with a cursor index.
   private class ArraySetIterator implements Iterator<T> {
-    private int cursor = 0;                    // index of the next element to return
-    private int expectedModCount = modCount;   // the set's count when this walk began
-
     @Override
     public boolean hasNext() {
       // TODO: Implement me
