@@ -1,6 +1,6 @@
 package set;
 
-/** A demo of the Set ADT: a website keeping track of the usernames that are taken. */
+/** A demo of the Set ADT: a mailing list that keeps each subscriber's email address once. */
 public final class Main {
 
   private Main() {
@@ -9,26 +9,29 @@ public final class Main {
 
   public static void main(String[] args) {
     System.out.println("LinkedSet:");
-    registerUsers(new LinkedSet<>());
+    runMailingList(new LinkedSet<>());
     System.out.println("ArraySet:");
-    registerUsers(new ArraySet<>());
+    runMailingList(new ArraySet<>());
   }
 
-  // Registers a few usernames, including one that is already taken, then frees one.
-  private static void registerUsers(Set<String> taken) {
-    System.out.println("  register alice: " + taken.add("alice"));
-    System.out.println("  register bob: " + taken.add("bob"));
-    System.out.println("  register alice again: " + taken.add("alice"));
-    System.out.println("  names taken: " + taken.size());
-    System.out.println("  is bob taken? " + taken.contains("bob"));
-    System.out.println("  is carol taken? " + taken.contains("carol"));
-    System.out.print("  all names:");
-    for (String name : taken) {
-      System.out.print(" " + name);
+  // Subscribes a few addresses, including one twice, sends a newsletter, then unsubscribes one.
+  private static void runMailingList(Set<String> subscribers) {
+    System.out.println("  subscribe alice@jhu.edu: " + subscribers.add("alice@jhu.edu"));
+    System.out.println("  subscribe bob@gmail.com: " + subscribers.add("bob@gmail.com"));
+    System.out.println("  subscribe alice@jhu.edu again: " + subscribers.add("alice@jhu.edu"));
+    System.out.println("  subscribers: " + subscribers.size());
+    System.out.println("  is bob@gmail.com subscribed? " + subscribers.contains("bob@gmail.com"));
+    System.out.println("  is carol@jhu.edu subscribed? " + subscribers.contains("carol@jhu.edu"));
+    for (String email : subscribers) {
+      sendNewsletter(email);
     }
-    System.out.println();
-    System.out.println("  bob deletes the account: " + taken.remove("bob"));
-    System.out.println("  is bob taken? " + taken.contains("bob"));
-    System.out.println("  register bob: " + taken.add("bob"));
+    System.out.println("  bob@gmail.com unsubscribes: " + subscribers.remove("bob@gmail.com"));
+    System.out.println("  is bob@gmail.com subscribed? " + subscribers.contains("bob@gmail.com"));
+    System.out.println("  subscribe bob@gmail.com: " + subscribers.add("bob@gmail.com"));
+  }
+
+  // Stands in for sending an email: prints the address the newsletter goes to.
+  private static void sendNewsletter(String email) {
+    System.out.println("  send newsletter to " + email);
   }
 }

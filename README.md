@@ -21,7 +21,7 @@ code/
         Set.java                        # the Set ADT contract, now extends Iterable<T>
         LinkedSet.java                  # node-backed Set
         ArraySet.java                   # array-backed Set
-        Main.java                       # demo entry point (the username example)
+        Main.java                       # demo entry point (the mailing list example)
     test/
       set/
         SetTest.java                    # abstract: the Set contract suite
@@ -43,7 +43,7 @@ code/
 - `set.Set<T>` — the Set contract: `add`, `remove`, `contains`, and `size`. It extends `Iterable<T>`, so every set also has `iterator()`.
 - `set.LinkedSet<T>` — the node-backed implementation. Its iterator follows the nodes from `head`.
 - `set.ArraySet<T>` — the array-backed implementation. Its iterator moves a cursor index over the filled part of the array.
-- `set.Main` — a runnable demo of the username example, run on both implementations. It lists the names with an enhanced `for` loop.
+- `set.Main` — a runnable demo of the mailing list example, run on both implementations. It sends a newsletter to every address with an enhanced `for` loop.
 - `set.SetTest` — the abstract contract suite. It checks `add`, `remove`, `contains`, `size`, and the iterator. The iterator tests check which elements come out, not their order, because a set has no order. They also check that an iteration fails fast after an `add` or a `remove`.
 - `set.LinkedSetTest`, `set.ArraySetTest` — each runs the contract suite against one implementation.
 
