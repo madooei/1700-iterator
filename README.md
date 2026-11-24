@@ -21,14 +21,16 @@ code/
         Set.java                        # the Set ADT contract, now extends Iterable<T>
         LinkedSet.java                  # node-backed Set
         ArraySet.java                   # array-backed Set
-        Main.java                       # demo entry point (the mailing list example)
+      demo/                             # one demo per implementation
+        LinkedSetDemo.java
+        ArraySetDemo.java
     test/
       set/
         SetTest.java                    # abstract: the Set contract suite
         LinkedSetTest.java              # runs the suite against LinkedSet
         ArraySetTest.java               # runs the suite against ArraySet
   scripts/
-    run.sh                              # compile and run the Set demo (set.Main)
+    run.sh                              # compile and run one demo
     test.sh                             # compile and run every JUnit test
 ```
 
@@ -36,16 +38,16 @@ code/
 
 - `scripts/test.sh` — compiles everything and runs the full JUnit suite.
 - `scripts/test.sh set.ArraySetTest` — compiles everything and runs only that test class. Use this while you are working on one class and the others are still empty.
-- `scripts/run.sh` — compiles everything and runs the `Main` demo.
+- `scripts/run.sh demo.ArraySetDemo` — compiles everything and runs that one demo. Every class you implement has its own demo, `<Class>Demo`.
 
 ## What's here
 
 - `set.Set<T>` — the Set contract: `add`, `remove`, `contains`, and `size`. It extends `Iterable<T>`, so every set also has `iterator()`.
 - `set.LinkedSet<T>` — the node-backed implementation. Its iterator follows the nodes from `head`.
 - `set.ArraySet<T>` — the array-backed implementation. Its iterator moves a cursor index over the filled part of the array.
-- `set.Main` — a runnable demo of the mailing list example, run on both implementations. It sends a newsletter to every address with an enhanced `for` loop.
 - `set.SetTest` — the abstract contract suite. It checks `add`, `remove`, `contains`, `size`, and the iterator. The iterator tests check which elements come out, not their order, because a set has no order. They also check that an iteration fails fast after an `add` or a `remove`.
 - `set.LinkedSetTest`, `set.ArraySetTest` — each runs the contract suite against one implementation.
+- `demo.LinkedSetDemo`, `demo.ArraySetDemo` — one demo per implementation, each on the mailing list example. Each sends a newsletter to every address with an enhanced `for` loop.
 
 ## Failing fast
 
